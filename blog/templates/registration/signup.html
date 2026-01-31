@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<div style="
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    max-width:360px;
+    margin:60px auto;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+">
+
+<h2 style="text-align:center; margin-bottom:20px;">Join Unprompted</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="
+        width:100%;
+        background:#FF5A1F;
+        color:white;
+        padding:12px;
+        border:none;
+        border-radius:999px;
+        font-weight:600;
+    ">Create account</button>
+</form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+
+<div style="
+    background: #FFFFFF;
+    padding: 40px;
+    border-radius: 18px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    text-align: center;
+">
+
+    <h2 style="
+        font-family: 'Special Elite', monospace;
+        margin-bottom: 24px;
+    ">
+        Welcome back
+    </h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" style="
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #C65D3B;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        ">
+            Log in
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}
