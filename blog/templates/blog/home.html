@@ -7,25 +7,11 @@
         Unprompted<span class="accent">.</span>
     </div>
 
-    <div class="hero-line">
-        Without prompts<span class="accent">.</span>
-    </div>
-
-    <div class="hero-line">
-        A human-only writing space<span class="accent">.</span>
-    </div>
-
-    <div class="hero-line">
-        No AI assistance<span class="accent">.</span>
-    </div>
-
-    <div class="hero-line">
-        No automation<span class="accent">.</span>
-    </div>
-
-    <div class="hero-line">
-        Just people sharing real thoughts<span class="accent">.</span>
-    </div>
+    <div class="hero-line">Without prompts<span class="accent">.</span></div>
+    <div class="hero-line">A human-only writing space<span class="accent">.</span></div>
+    <div class="hero-line">No AI assistance<span class="accent">.</span></div>
+    <div class="hero-line">No automation<span class="accent">.</span></div>
+    <div class="hero-line">Just people sharing real thoughts<span class="accent">.</span></div>
 </div>
 
 <div class="feed">
@@ -57,9 +43,18 @@
         <div class="post-card">
 
             <a href="{% url 'post_detail' post.id %}"
-               style="text-decoration:none; color:inherit;">
+               style="text-decoration:none; color:inherit; display:block;">
 
-                <div class="author">{{ post.author.username }}</div>
+                <div class="author">
+                    <a href="{% url 'user_profile' post.author.username %}"
+                        style="text-decoration:none; color:inherit;">
+                        {{ post.author.username }}
+                     </a>
+                </div>
+
+                {% if post.author.profile.bio %}
+                    <div class="meta">{{ post.author.profile.bio }}</div>
+                {% endif %}
 
                 <div class="content">
                     {{ post.content|linebreaks|truncatechars:300 }}

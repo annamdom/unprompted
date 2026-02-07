@@ -1,32 +1,74 @@
-{% extends 'blog/base.html' %}
+{% extends "blog/base.html" %}
 
 {% block content %}
 
-<div style="
-    background:white;
-    padding:30px;
-    border-radius:18px;
-    max-width:360px;
-    margin:60px auto;
-    box-shadow:0 10px 30px rgba(0,0,0,0.08);
-">
+<div class="hero" style="margin-bottom:30px;">
+    <div class="hero-title">
+        Unprompted<span class="accent">.</span>
+    </div>
 
-<h2 style="text-align:center; margin-bottom:20px;">Join Unprompted</h2>
+    <div class="hero-line">
+        Join the human side of writing
+    </div>
+</div>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" style="
-        width:100%;
-        background:#FF5A1F;
-        color:white;
-        padding:12px;
-        border:none;
-        border-radius:999px;
-        font-weight:600;
-    ">Create account</button>
-</form>
+<div class="post-card" style="max-width:420px;">
+
+    <form method="post">
+        {% csrf_token %}
+
+        
+        <label style="font-weight:600; font-size:14px;">Username</label>
+        {{ form.username }}
+
+        
+        <label style="font-weight:600; font-size:14px; margin-top:14px; display:block;">
+            Password
+        </label>
+        {{ form.password1 }}
+
+        
+        <label style="font-weight:600; font-size:14px; margin-top:14px; display:block;">
+            Confirm password
+        </label>
+        {{ form.password2 }}
+
+        <button type="submit"
+                style="
+                    width:100%;
+                    margin-top:22px;
+                    background:#C65D3B;
+                    color:white;
+                    padding:12px;
+                    border:none;
+                    border-radius:999px;
+                    font-weight:600;
+                    font-size:15px;
+                ">
+            Create account
+        </button>
+    </form>
 
 </div>
+
+<style>
+   
+    input {
+        width:100%;
+        padding:10px 12px;
+        margin-top:6px;
+        margin-bottom:12px;
+        border-radius:10px;
+        border:1px solid #DDD;
+        font-family: inherit;
+        font-size:14px;
+    }
+
+    
+    .helptext,
+    ul.errorlist {
+        display: none;
+    }
+</style>
 
 {% endblock %}

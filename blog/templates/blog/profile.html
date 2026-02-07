@@ -1,0 +1,94 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+
+<div class="post-card" style="display:flex; gap:20px; align-items:center;">
+
+    {% if profile.avatar %}
+        <img src="{{ profile.avatar.url }}"
+             alt="Profile picture"
+             style="width:90px; height:90px; border-radius:50%; object-fit:cover;">
+    {% else %}
+        <img src="/static/blog/avatar.png"
+             alt="Default avatar"
+             style="width:90px; height:90px; border-radius:50%; object-fit:cover;">
+    {% endif %}
+
+    <div style="flex:1;">
+        <h2 style="margin-bottom:4px;">
+            {{ profile.user.first_name|default:profile.user.username }}
+        </h2>
+
+        <p style="color:#6E6A66; margin:0 0 8px 0;">
+            @{{ profile.user.username }}
+        </p>
+
+        <p style="margin-bottom:10px;">
+            {{ profile.bio|default:"No bio yet." }}
+        </p>
+
+        {% if is_owner %}
+            <div style="display:flex; gap:14px; align-items:center;">
+
+                <a href="{% url 'edit_profile' %}" style="font-size:14px;">
+                    Edit profile
+                </a>
+
+                <form method="post"
+                      action="{% url 'delete_profile' %}"
+                      onsubmit="return confirm('Are you sure? This will permanently delete your profile and posts.');">
+                    {% csrf_token %}
+                    <button type="submit"
+                            style="
+                                background:none;
+                                border:none;
+                                color:#c0392b;
+                                font-size:13px;
+                                cursor:pointer;
+                            ">
+                        Delete my profile
+                    </button>
+                </form>
+
+            </div>
+        {% endif %}
+    </div>
+
+</div>
+
+
+<div class="feed">
+
+    {% for post in posts %}
+        <div class="post-card">
+
+            <div class="content">
+                {{ post.content|linebreaks }}
+            </div>
+
+            <div class="meta">
+                {{ post.created_at|date:"M d, Y · H:i" }}
+            </div>
+
+            {% if is_owner %}
+                <div style="margin-top:10px; font-size:13px;">
+                    <a href="{% url 'edit_post' post.id %}">Edit</a>
+                    ·
+                    <a href="{% url 'delete_post' post.id %}"
+                       style="color:#c0392b;"
+                       onclick="return confirm('Delete this post?');">
+                        Delete
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+    {% empty %}
+        <p style="text-align:center; color:#6E6A66;">
+            No posts yet.
+        </p>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

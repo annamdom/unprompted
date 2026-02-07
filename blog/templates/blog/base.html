@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,15 +16,21 @@
             padding: 0;
         }
 
+        
         header {
-            position: fixed;
-            top: 20px;
-            right: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 26px;
+            border-bottom: 1px solid #eee;
+            background: #FAF7F2;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
         header a,
         header button {
-            margin-left: 14px;
             background: none;
             border: none;
             font-weight: 600;
@@ -33,15 +40,51 @@
             text-decoration: none;
         }
 
+        header a:hover,
+        header button:hover {
+            color: #1C1C1C;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-title {
+            font-family: 'Special Elite', monospace;
+            font-size: 18px;
+        }
+
+        .accent {
+            color: #C65D3B;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav input {
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: 1px solid #ddd;
+            font-size: 13px;
+        }
+
+        
         .page {
-            min-height: 100vh;
+            min-height: calc(100vh - 70px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             padding: 40px 20px;
         }
 
+        
         .hero {
             max-width: 520px;
             text-align: center;
@@ -59,10 +102,6 @@
             font-size: 16px;
             color: #6E6A66;
             margin: 6px 0;
-        }
-
-        .accent {
-            color: #C65D3B;
         }
 
         .feed {
@@ -101,14 +140,30 @@
 <body>
 
 <header>
+    
+    <a class="brand"
+       href="{% if user.is_authenticated %}{% url 'feed' %}{% else %}{% url 'landing' %}{% endif %}">
+        <img src="{% static 'blog/typewriter.png' %}" style="height:28px;">
+        <span class="brand-title">
+            Unprompted<span class="accent">.</span>
+        </span>
+    </a>
+
+    
     {% if user.is_authenticated %}
-        <form method="post" action="{% url 'logout' %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'signup' %}">Sign up</a>
+        <div class="nav">
+            <form method="get" action="{% url 'search' %}">
+                <input type="text" name="q" placeholder="Search posts…">
+            </form>
+
+            <a href="{% url 'users' %}">Users</a>
+            <a href="{% url 'profile' %}">Profile</a>
+
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
     {% endif %}
 </header>
 

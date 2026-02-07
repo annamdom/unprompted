@@ -4,27 +4,63 @@
 
 <div class="feed">
 
+    
     <div class="post-card">
         <div class="author">{{ post.author.username }}</div>
-        <div class="content">{{ post.content }}</div>
-        <div class="meta">{{ post.created_at }}</div>
+
+        <div class="content">
+            {{ post.content|linebreaks }}
+        </div>
+
+        <div class="meta">
+            {{ post.created_at|date:"M d, Y · H:i" }}
+        </div>
+
+        {% if post.author == user %}
+            <div style="margin-top:10px; font-size:13px;">
+                <a href="{% url 'edit_post' post.id %}">Edit</a>
+                ·
+                <a href="{% url 'delete_post' post.id %}"
+                   style="color:#c0392b;">
+                    Delete
+                </a>
+            </div>
+        {% endif %}
     </div>
 
+    
     <h3 style="margin-top:40px;">Comments</h3>
 
     {% for comment in post.comments.all %}
         <div class="post-card" style="margin-top:12px;">
             <div class="author">{{ comment.author.username }}</div>
-            <div class="content">{{ comment.text }}</div>
-            <div class="meta">{{ comment.created_at }}</div>
+
+            <div class="content">
+                {{ comment.text|linebreaks }}
+            </div>
+
+            <div class="meta">
+                {{ comment.created_at|date:"M d, Y · H:i" }}
+            </div>
+
+            {% if comment.author == user %}
+                <div style="margin-top:8px; font-size:12px;">
+                    <a href="{% url 'delete_comment' comment.id %}"
+                       style="color:#c0392b;">
+                        Delete
+                    </a>
+                </div>
+            {% endif %}
         </div>
     {% empty %}
         <p style="color:#6E6A66;">No comments yet.</p>
     {% endfor %}
 
+    
     {% if user.is_authenticated %}
         <form method="post" style="margin-top:30px;">
             {% csrf_token %}
+
             <textarea
                 name="text"
                 rows="3"
@@ -36,7 +72,9 @@
                     border:1px solid #ddd;
                     margin-bottom:10px;
                 "
+                required
             ></textarea>
+
             <button type="submit"
                 style="
                     background:#C65D3B;

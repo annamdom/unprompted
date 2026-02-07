@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="post-card" style="max-width:400px; margin:auto; text-align:center;">
+    <h3>Delete {{ type }}?</h3>
+    <p>This action cannot be undone.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button style="background:#c0392b; color:white;">Delete</button>
+        <a href="javascript:history.back()" style="margin-left:15px;">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="post-card" style="max-width:500px; margin:auto;">
+
+    <h2 style="margin-bottom:20px;">Edit profile</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Name</label>
+        <input
+            type="text"
+            name="name"
+            value="{{ profile.user.first_name }}"
+            style="width:100%; padding:8px; margin-bottom:12px;"
+        >
+
+        <label>Bio</label>
+        <textarea
+            name="bio"
+            rows="4"
+            style="width:100%; padding:8px; margin-bottom:12px;"
+        >{{ profile.bio }}</textarea>
+
+        <label>Profile picture</label>
+        <input
+            type="file"
+            name="avatar"
+            style="margin-bottom:20px;"
+        >
+
+        <button
+            type="submit"
+            style="background:#C65D3B; color:white; border:none; padding:10px 18px; border-radius:999px;"
+        >
+            Save changes
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}

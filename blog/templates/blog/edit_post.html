@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="post-card" style="max-width:600px; margin:auto;">
+    <h2>Edit post</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <textarea
+            name="content"
+            rows="6"
+            style="width:100%; border:none; resize:none;"
+        >{{ post.content }}</textarea>
+
+        <button style="margin-top:10px;">Save</button>
+    </form>
+</div>
+
+{% endblock %}

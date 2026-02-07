@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="hero">
+    <img src="{% static 'blog/typewriter.png' %}"
+         alt="Typewriter"
+         style="max-width:240px; margin-bottom:30px;">
+
+    <div class="hero-title">
+        Unprompted<span class="accent">.</span>
+    </div>
+
+    <div class="hero-line">Writing, Without prompts.</div>
+    <div class="hero-line">A human-only writing space.</div>
+    <div class="hero-line">No AI assistance.</div>
+    <div class="hero-line">Just real thoughts.</div>
+
+    <div style="margin-top:40px;">
+        <a href="{% url 'login' %}">Login</a> ·
+        <a href="{% url 'signup' %}">Sign up</a>
+    </div>
+</div>
+
+{% endblock %}
